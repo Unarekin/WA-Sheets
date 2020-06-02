@@ -1,0 +1,18 @@
+#index:
+#    path: /
+#    controller: App\Controller\DefaultController::index
+index:
+  path: /
+  controller: Symfony\Bundle\FrameworkBundle\Controller\TemplateController::templateAction
+  defaults:
+    template: base.html.twig
+ex3_mortal_view:
+  path: /EX3/Mortal/view
+  controller: Symfony\Bundle\FrameworkBundle\Controller\TemplateController::templateAction
+  defaults:
+    template: EX3\Mortal\sheet.html.twig
+ex3_mortal_edit:
+  path: /EX3/Mortal/edit
+  controller: Symfony\Bundle\FrameworkBundle\Controller\TemplateController::templateAction
+  defaults:
+    template: EX3\Mortal\edit.html.twig

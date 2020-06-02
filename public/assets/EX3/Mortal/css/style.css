@@ -1,0 +1,85 @@
+.user-css .logo {
+  max-width: 100%;
+}
+.user-css .container {
+  color: black;
+  background-color: white;
+  font-family: "open sans";
+  box-sizing: border-box;
+}
+.user-css input[type=text], .user-css input[type=number] {
+  border: none;
+  border-bottom: 1px solid black;
+  width: 100%;
+}
+.user-css .underline {
+  border-bottom: 1px solid black;
+}
+.user-css .abs-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+.user-css .fullwidth {
+  width: 100%;
+}
+.user-css .fullheight {
+  height: 100%;
+}
+.user-css .vertical-center {
+  display: flex;
+  align-items: center;
+}
+.user-css .vertical-center div {
+  width: 100%;
+}
+.user-css .big-dots {
+  font-size: 36px;
+  line-height: 36px;
+}
+.user-css .big-squares {
+  font-size: 25px;
+  line-height: 25px;
+}
+.user-css .min-height-24 {
+  min-height: 24px;
+}
+.user-css .min-height-20 {
+  min-height: 20px;
+}
+.user-css .white-bg {
+  background-color: white;
+}
+.user-css .pad-left {
+  padding-left: 2px;
+}
+.user-css .bump-left {
+  padding-left: 15px;
+}
+.user-css .bump-right {
+  padding-right: 15px;
+}
+.user-css .margin-right {
+  margin-right: 10px;
+}
+.user-css .pad-right {
+  padding-right: 2px;
+}
+.user-css .bar {
+  position: relative;
+}
+.user-css .bar img {
+  height: 6px;
+  width: 100%;
+  margin-top: -2px;
+}
+.user-css .bar > div {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+}
+
+/*# sourceMappingURL=style.css.map */

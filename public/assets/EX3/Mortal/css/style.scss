@@ -1,0 +1,107 @@
+
+.user-css {
+  .logo {
+    max-width: 100%;
+  }
+
+  .container {
+    color: black;
+    background-color: white;
+    font-family: "open sans";
+    box-sizing: border-box;
+  }
+
+  input[type="text"],input[type="number"] {
+    border: none;
+    border-bottom: 1px solid black;
+    width: 100%;
+  }
+
+  .underline {
+    border-bottom: 1px solid black;
+  }
+
+  .abs-center {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+  }
+
+  .fullwidth {
+    width: 100%;
+  }
+
+  .fullheight {
+    height: 100%;
+  }
+
+  .vertical-center {
+    display: flex;
+    align-items: center;
+
+    div {
+      width: 100%;
+    }
+  }
+
+  .big-dots {
+    font-size: 36px;
+    line-height: 36px;
+  }
+
+  .big-squares {
+    font-size: 25px;
+    line-height: 25px;
+  }
+
+  .min-height-24 {
+    min-height: 24px;
+  }
+
+  .min-height-20 {
+    min-height: 20px;
+  }
+
+  .white-bg {
+    background-color: white;
+  }
+
+  .pad-left {
+    padding-left: 2px;
+  }
+
+  .bump-left {
+    padding-left: 15px;
+  }
+
+  .bump-right {
+    padding-right: 15px;
+  }
+
+  .margin-right {
+    margin-right: 10px;
+  }
+
+  .pad-right {
+    padding-right: 2px;
+  }
+
+  .bar {
+    position: relative;
+
+    img {
+      height:6px;
+      width:100%;
+      margin-top:-2px;
+    }
+
+    >div {
+      position: absolute;
+      top:0;
+      left:0;
+      right:0;
+      bottom:0;
+    }
+  }
+}
