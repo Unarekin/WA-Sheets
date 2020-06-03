@@ -20,7 +20,7 @@ set variables = {"name":"Sample Character","age":"23","concept":"This is a sampl
 
   <!-- Code goes here -->
   {% import _self as sheet %}
-  {% set logoUrl = "https://rawcdn.githack.com/Unarekin/World-Anvil-EX3-Sheets/88a3ba53411237e81c8b199b35eb0594ad2b26c7/images/EX3Logo.png" %}
+  {% set logoUrl = "https://rawcdn.githack.com/Unarekin/WA-Sheets/97bac457013be51b768a76819370d647e1ff358a/public/assets/EX3/images/GoldLogo.png" %}
 
     {% set abilities = [
     'Archery',
@@ -52,7 +52,7 @@ set variables = {"name":"Sample Character","age":"23","concept":"This is a sampl
   ] %}
   {% macro separator(name) %}
   <div class="bar">
-    <img src="https://rawcdn.githack.com/Unarekin/World-Anvil-EX3-Sheets/1de56a936f00401e3b40eb83aa28d607c063ea85/images/EX3Bar.jpg">
+    <img src="https://rawcdn.githack.com/Unarekin/WA-Sheets/97bac457013be51b768a76819370d647e1ff358a/public/assets/EX3/images/GoldBar.jpg">
     <div class="abs-center"><span class="white-bg pad-left pad-right">{{name}}</span></div>
   </div>
   {% endmacro separator %}
@@ -76,11 +76,11 @@ set variables = {"name":"Sample Character","age":"23","concept":"This is a sampl
     <div class="{% if allowFavored %}col-8{% else %}col-9{% endif %}">
       {% if underlineName %}<div class="underline fullheight">{% endif %}{{name}}{% if underlineName %}</div>{% endif %}
     </div>
-    <div class="col-3">{{ ext.showDots(value) }}</div>
+    <div class="col-3 text-right">{{ ext.showDots(value) }}</div>
   </div>
   {% endmacro abilityEntry %}
   {% macro weaponLine(name, withering, decisive, damage) %}
-  <div class="row bump-right">
+  <div class="row bump-right bump-left">
     <div class="col-6 underline min-height-20">{{ name is defined ? name}}</div>
     <div class="col-2 underline min-height-20 text-center">{{ withering is defined ? withering }}</div>
     <div class="col-2 underline min-height-20 text-center">{{ decisive is defined ? decisive }}</div>
@@ -241,44 +241,46 @@ set variables = {"name":"Sample Character","age":"23","concept":"This is a sampl
       <!-- Health & Defense -->
       {{ sheet.separator("Health & Defense") }}
       <div class="row small bump-right">
-        <div class="col-2 text-center">Natural Soak:</div>
-        <div class="col-1 underline text-center">{{ variables.natural_soak is defined ? variables.natural_soak }}</div>
-        <div class="col-2 text-center">Armored Soak:</div>
-        <div class="col-1 underline text-center">{{ variables.armored_soak is defined ? variables.armored_soak }}</div>
-        <div class="col-1 text-center">Total Soak:</div>
-        <div class="col-1 underline text-center">{{ variables.total_soak is defined ? variables.total_soak }}</div>
-        <div class="col-1 text-center">Hardness:</div>
-        <div class="col-1 underline text-center">{{ variables.hardness is defined ? variables.hardness }}</div>
-        <div class="col-1 text-center">Parry:</div>
-        <div class="col-1 underline text-center">{{ variables.parry is defined ? variables.parry }}</div>
+        <div class="col-4 col-sm-2 text-center">Natural Soak:</div>
+        <div class="col-2 col-sm-1 underline text-center">{{ variables.natural_soak is defined ? variables.natural_soak }}</div>
+        <div class="col-4 col-sm-2 text-center">Armored Soak:</div>
+        <div class="col-2 col-sm-1 underline text-center">{{ variables.armored_soak is defined ? variables.armored_soak }}</div>
+        <div class="col-4 col-sm-1 text-center">Total Soak:</div>
+        <div class="col-2 col-sm-1 underline text-center">{{ variables.total_soak is defined ? variables.total_soak }}</div>
+        <div class="col-4 col-sm-1 text-center">Hardness:</div>
+        <div class="col-2 col-sm-1 underline text-center">{{ variables.hardness is defined ? variables.hardness }}</div>
+        <div class="col-4 col-sm-1 text-center">Parry:</div>
+        <div class="col-2 col-sm-1 underline text-center">{{ variables.parry is defined ? variables.parry }}</div>
       </div>
       <div class="row small bump-right">
-        <div class="col-1 text-center">Evasion:</div>
-        <div class="col-1 underline text-center">{{ variables.evasion is defined ? variables.evasion }}</div>
-        <div class="col-1 text-center">Resolve:</div>
-        <div class="col-1 underline text-center">{{ variables.resolve is defined ? variables.resolve }}</div>
-        <div class="col-1 text-center">Guile:</div>
-        <div class="col-1 underline text-center">{{ variables.guile is defined ? variables.guile }}</div>
-        <div class="col-1 text-center">Join Battle:</div>
-        <div class="col-1 underline text-center">{{ variables.join_battle is defined ? variables.join_battle }}</div>
-        <div class="col-1 text-center">Rush:</div>
-        <div class="col-1 underline text-center">{{ variables.rush is defined ? variables.rush }}</div>
-        <div class="col-1 text-center">Disengage:</div>
-        <div class="col-1 underline text-center">{{ variables.disengage is defined ? variables.disengage }}</div>
+        <div class="col-4 col-sm-1 text-center">Evasion:</div>
+        <div class="col-2 col-sm-1 underline text-center">{{ variables.evasion is defined ? variables.evasion }}</div>
+        <div class="col-4 col-sm-1 text-center">Resolve:</div>
+        <div class="col-2 col-sm-1 underline text-center">{{ variables.resolve is defined ? variables.resolve }}</div>
+        <div class="col-4 col-sm-1 text-center">Guile:</div>
+        <div class="col-2 col-sm-1 underline text-center">{{ variables.guile is defined ? variables.guile }}</div>
+        <div class="col-4 col-sm-1 text-center">Join Battle:</div>
+        <div class="col-2 col-sm-1 underline text-center">{{ variables.join_battle is defined ? variables.join_battle }}</div>
+        <div class="col-4 col-sm-1 text-center">Rush:</div>
+        <div class="col-2 col-sm-1 underline text-center">{{ variables.rush is defined ? variables.rush }}</div>
+        <div class="col-4 col-sm-1 text-center">Disengage:</div>
+        <div class="col-2 col-sm-1 underline text-center">{{ variables.disengage is defined ? variables.disengage }}</div>
       </div>
+      <!-- Health levels -->
+
       <!-- Intimacies -->
       {{ sheet.separator("Intimacies") }}
-      <div class="row">
+      <div class="row bump-right">
         <div class="col-12 col-sm-6">
           <div class="row">
-            <div class="col-9">Intimacy</div>
-            <div class="col-3">Intensity</div>
+            <div class="col-10">Intimacy</div>
+            <div class="col-2 text-center">Intensity</div>
           </div>
         </div>
         <div class="col-sm-6 d-none d-sm-block">
           <div class="row">
-            <div class="col-9">Intimacy</div>
-            <div class="col-3">Intensity</div>
+            <div class="col-10">Intimacy</div>
+            <div class="col-2 text-center">Intensity</div>
           </div>
         </div>
       </div>
@@ -286,18 +288,18 @@ set variables = {"name":"Sample Character","age":"23","concept":"This is a sampl
         {% for index in 0..9 %}
           <div class="col-sm-6 col-12">
             <div class="row">
-              <div class="col-9">
+              <div class="col-10">
                 <div class="underline fullheight">{{ variables["intimacy_" ~ index ~ "_name"] is defined ? variables["intimacy_" ~ index ~ "_name"] }}</div>
               </div>
-              <div class="col-3">{{ sheet.showDots(variables["intimacy_" ~ index ~ "_intensity"] is defined ? variables["intimacy_" ~ index ~ "_intensity"] : 0, 3) }}</div>
+              <div class="col-2 text-center">{{ sheet.showDots(variables["intimacy_" ~ index ~ "_intensity"] is defined ? variables["intimacy_" ~ index ~ "_intensity"] : 0, 3) }}</div>
             </div>
           </div>
           <div class="col-sm-6 col-12">
             <div class="row">
-              <div class="col-9">
+              <div class="col-10">
                 <div class="underline fullheight">{{ variables["intimacy_" ~ (index + 10) ~ "_name"] is defined ? variables["intimacy_" ~ (index + 10) ~ "_name"] }}</div>
               </div>
-              <div class="col-3">{{ sheet.showDots(variables["intimacy_" ~ (index + 10) ~ "_intensity"] is defined ? variables["intimacy_" ~ (index + 10) ~ "_intensity"] : 0, 3) }}</div>
+              <div class="col-2 text-center">{{ sheet.showDots(variables["intimacy_" ~ (index + 10) ~ "_intensity"] is defined ? variables["intimacy_" ~ (index + 10) ~ "_intensity"] : 0, 3) }}</div>
             </div>
           </div>
         {% endfor %}
