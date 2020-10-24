@@ -213,169 +213,24 @@ set variables = {"name":"Sample Character","age":"23","concept":"This is a sampl
           {{ sheet.abilityEntry(name, true, true, true, value, specialty, favored, true, slug) }}
           {% endfor %}
         </div>
-        {% if false %}
+      </div>
+      {{ sheet.separator("Combat") }}
+      <div class="row">
+      </div>
+      {{ sheet.separator("Advantages") }}
+      <div class="row">
+      </div>
+      <div class="row">
         <div class="col-sm-4 col-12">
-          {% for ability in abilities %}
-          {% set slug = ability|lower|replace({" ": "_"}) %}
-          {{ sheet.abilityEntry(ability, true, true, false, variables[slug] is defined ? variables[slug] : 0, variables[slug ~ "_specialty"], variables[slug ~ "_favored"] is defined ? variables[slug ~ "_favored"] : false) }}
-          {% endfor %}
-          {{ sheet.separator("Additional Abilities") }}
-          {% for index in 0..4 %}
-          {% set slug = "additional_ability_" ~ index %}
-          {% set name = variables[slug ~ "_name"] is defined ? variables[slug ~ "_name"] : "" %}
-          {% set value = variables[slug ~ "_value"] is defined ? variables[slug ~ "_value"] : 0 %}
-          {% set specialty = variables[slug ~ "_specialty"] is defined ? variables[slug ~ "_specialty"] : "" %}
-          {% set favored = variables[slug ~ "_favored"] is defined ? variables[slug ~ "_favored"] : false %}
-          {{ sheet.abilityEntry(name, true, true, true, value, specialty, favored, true, slug) }}
-          {% endfor %}
+          {{ sheet.separator("Limit") }}
         </div>
-        {% endif %}
-      </div>
-      <!-- Health & Defense -->
-      {{ sheet.separator("Health & Defense") }}
-      <div class="row small bump-right">
-        <div class="col-4 col-sm-2 text-center">
-          <label for="natural_soak">Natural Soak:</label>
+        <div class="col-sm-4 col-12">
+          {{ sheet.separator("Health") }}
         </div>
-        <div class="col-2 col-sm-1">
-          <input type="number" name="natural_soak" id="natural_soak" value="{{ variables.natural_soak is defined ? variables.natural_soak }}" title="Natural Soak">
-        </div>
-        <div class="col-4 col-sm-2 text-center">
-          <label for="armored_soak">Armored Soak:</label>
-        </div>
-        <div class="col-2 col-sm-1">
-          <input type="number" name="armored_soak" id="armored_soak" value="{{ variables.armored_soak is defined ? variables.armored_soak }}" title="Armored Soak">
-        </div>
-        <div class="col-4 col-sm-1 text-center">
-          <label for="total_soak">Total Soak:</label>
-        </div>
-        <div class="col-2 col-sm-1">
-          <input type="number" id="total_soak" name="total_soak" value="{{ variables.total_soak is defined ? variables.total_soak }}" title="Total Soak">
-        </div>
-        <div class="col-4 col-sm-1 text-center">
-          <label for="hardness">Hardness:</label>
-        </div>
-        <div class="col-2 col-sm-1">
-          <input type="number" name="hardness" id="hardness" value="{{ variables.hardness is defined ? variables.hardness }}" title="Hardness">
-        </div>
-        <div class="col-4 col-sm-1 text-center">
-          <label for="parry">Parry:</label>
-        </div>
-        <div class="col-2 col-sm-1">
-          <input type="number" name="parry" id="parry" value="{{ variables.parry is defined ? variables.parry }}" title="Parry">
-        </div>
-      </div>
-      <div class="row small bump-right">
-        <div class="col-4 col-sm-1 text-center">
-          <label for="evasion">Evasion:</label>
-        </div>
-        <div class="col-2 col-sm-1">
-          <input type="number" id="evasion" name="evasion" value="{{ variables.evasion is defined ? variables.evasion }}" title="Evasion">
-        </div>
-        <div class="col-4 col-sm-1 text-center">
-          <label for="resolve">Resolve:</label>
-        </div>
-        <div class="col-2 col-sm-1">
-          <input type="number" id="resolve" name="resolve" value="{{ variables.resolve is defined ? variables.resolve }}" title="Resolve">
-        </div>
-        <div class="col-4 col-sm-1 text-center">
-          <label for="guile">Guile:</label>
-        </div>
-        <div class="col-2 col-sm-1">
-          <input type="number" id="guile" name="guile" value="{{ variables.guile is defined ? variables.guile }}" title="Guile">
-        </div>
-        <div class="col-4 col-sm-1 text-center">
-          <label for="join_battle">Join Battle:</label>
-        </div>
-        <div class="col-2 col-sm-1">
-          <input type="number" id="join_battle" name="join_battle" value="{{ variables.join_battle is defined ? variables.join_battle }}" title="Join Battle">
-        </div>
-        <div class="col-4 col-sm-1 text-center">
-          <label for="rush">Rush:</label>
-        </div>
-        <div class="col-2 col-sm-1">
-          <input type="number" id="rush" name="rush" value="{{ variables.rush is defined ? variables.rush }}" title="Rush">
-        </div>
-        <div class="col-4 col-sm-1 text-center">
-          <label for="disengage">Disengage:</label>
-        </div>
-        <div class="col-2 col-sm-1">
-          <input type="number" id="disengage" name="disengage" value="{{ variables.disengage is defined ? variables.disengage }}" title="Disengage">
-        </div>
-      </div>
-      <div class="row">
-        <div class="col-12 text-center">Health Levels:</div>
-      </div>
-      <div class="text-center">
-        {% for index in 0..31 %}
-          <input type="text" size="1" class="health" id="health_level_{{index}}" name="health_level_{{index}}" value="{{ variables["health_level_" ~ index] is defined ? variables["health_level_" ~ index] }}">
-        {% endfor %}
-      </div>
-      <!-- Intimacies -->
-      {{ sheet.separator("Intimacies") }}
-      <div class="row bump-right">
-        <div class="col-12 col-sm-6">
-          <div class="row">
-            <div class="col-8 col-sm-10">Intimacy</div>
-            <div class="col-4 col-sm-2 text-center">Intensity</div>
-          </div>
-        </div>
-        <div class="col-sm-6 d-none d-sm-block">
-          <div class="row">
-            <div class="col-10">Intimacy</div>
-            <div class="col-2 text-center">Intensity</div>
-          </div>
-        </div>
-      </div>
-      <div class="row">
-        {% for index in 0..9 %}
-          {% set name1 = variables["intimacy_" ~ index ~ "_name"] is defined ? variables["intimacy_" ~ index ~ "_name"] : "" %}
-          {% set intensity1 = variables["intimacy_" ~ index ~ "_intensity"] is defined ? variables["intimacy_" ~ index ~ "_intensity"] : 0 %}
-          {% set name2 = variables["intimacy_" ~ (index + 10) ~ "_name"] is defined ? variables["intimacy_" ~ (index + 10) ~ "_name"] : "" %}
-          {% set intensity2 = variables["intimacy_" ~ (index + 10) ~ "_intensity"] is defined ? variables["intimacy_" ~ (index + 10) ~ "_intensity"] : 0 %}
-          <div class="col-sm-6 col-12">
-            <div class="row">
-              <div class="col-8 col-sm-10">
-                <input type="text" name="intimacy_{{index}}_name" id="intimacy_{{index}}_name" value="{{ name1 }}">
-              </div>
-              <div class="col-4 col-sm-2">
-                <input type="text" id="intimacy_{{index}}_intensity" name="intimacy_{{index}}_intensity" value="{{ intensity1 }}">
-              </div>
-            </div>
-          </div>
-          <div class="col-sm-6 col-12">
-            <div class="row">
-              <div class="col-8 col-sm-10">
-                <input type="text" name="intimacy_{{index + 10}}_name" id="intimacy_{{index + 10}}_name" value="{{ name2 }}">
-              </div>
-              <div class="col-4 col-sm-2">
-                <input type="text" name="intimacy_{{index + 10}}_intensity" id="intimacy_{{index + 10}}_intensity" value="{{ intensity2 }}">
-              </div>
-            </div>
-          </div>
-        {% endfor %}
-      </div>
-      <!-- Equipment -->
-      {{ sheet.separator("Equipment") }}
-      <div class="row">
-        <div class="col-12">
-          {% for index in 0..7 %}
-          <div class="row">
-            <div class="col-sm-6 col-12 min-height-20">
-              <input type="text" id="equipment_{{index}}" name="equipment_{{index}}" value="{{ variables["equipment_" ~ index] is defined ? variables["equipment_" ~ index] }}">
-            </div>
-            <div class="col-sm-6 col-12 min-height-20">
-              <input type="text" id="equipment_{{index + 8}}" name="equipment_{{index + 8}}" value="{{ variables["equipment_" ~ (index + 8)] is defined ? variables["equipment_" ~ (index + 8)] }}">
-            </div>
-          </div>
-          {% endfor %}
-        </div>
-      </div>
-      <!-- Notes -->
-      {{ sheet.separator("Notes") }}
-      <div class="row">
-        <div class="col-12">
-          <textarea class="fullwidth" rows="15" id="notes" name="notes">{{variables.notes is defined ? variables.notes}}</textarea>
+        <div class="col-sm-4 col-12">
+          {{ sheet.separator("Willpower") }}
+
+          {{ sheet.separator("Essence") }}
         </div>
       </div>
     </div>
