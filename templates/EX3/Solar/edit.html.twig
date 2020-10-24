@@ -21,35 +21,42 @@ set variables = {"name":"Sample Character","age":"23","concept":"This is a sampl
   <!-- Code goes here -->
   {% import _self as sheet %}
   {% set logoUrl = "https://rawcdn.githack.com/Unarekin/WA-Sheets/97bac457013be51b768a76819370d647e1ff358a/public/assets/EX3/images/GoldLogo.png" %}
+  {%
+    set abilities = {
+      "War": [
+        "Archery",
+        "Athletics",
+        "Awareness",
+        "Brawl",
+        "Dodge",
+        "Integrity",
+        "Melee",
+        "Resistance",
+        "Thrown",
+        "War"
+      ],
+      "Life": [
+        "Craft",
+        "Larceny",
+        "Linguistics",
+        "Performance",
+        "Presence",
+        "Ride",
+        "Sail",
+        "Socialize",
+        "Stealth",
+        "Survival"
+      ],
+      "Wisdom": [
+        "Bureaucracy",
+        "Investigation",
+        "Lore",
+        "Medicine",
+        "Occult"
+      ]
+    }
+  %}
 
-    {% set abilities = [
-    'Archery',
-    'Athletics',
-    'Awareness',
-    'Brawl',
-    'Bureaucracy',
-    'Craft',
-    'Dodge',
-    'Integrity',
-    'Investigation',
-    'Larceny',
-    'Linguistics',
-    'Lore',
-    'Martial Arts',
-    'Medicine',
-    'Melee',
-    'Occult',
-    'Performance',
-    'Presence',
-    'Resistance',
-    'Ride',
-    'Sail',
-    'Socialize',
-    'Stealth',
-    'Survival',
-    'Thrown',
-    'War'
-  ] %}
   {% macro separator(name) %}
   <div class="bar">
     <img src="https://rawcdn.githack.com/Unarekin/WA-Sheets/97bac457013be51b768a76819370d647e1ff358a/public/assets/EX3/images/GoldBar.jpg">
@@ -114,17 +121,34 @@ set variables = {"name":"Sample Character","age":"23","concept":"This is a sampl
               <input type="text" id="name" name="name" value="{{variables.name is defined ? variables.name }}">
             </div>
             <div class="col-sm-2 col-3">
-              <label for="age">Age:</label>
+              <label for="anima">Iconic Anima:</label>
             </div>
             <div class="col-sm-4 col-9">
-              <input type="number" id="age" name="age" value="{{variables.age is defined ? variables.age : 0 }}">
+              <input type="text" id="anima" name="anima" value="{{variables.anima is defined ? variables.anima : 0 }}">
+            </div>
+            <div class="col-sm-2 col-3">
+              <label for="player">Player:</label>
+            </div>
+            <div class="col-sm-4 col-9">
+              <input type="text" id="player" name="player" value="{{variables.player is defined ? variables.player }}">
+            </div>
+            <div class="col-sm-2 col-3">
+              <label for="limit_trigger">Limit Trigger:</label>
+            </div>
+            <div class="col-sm-4 col-9">
+              <input type="text" id="limit_trigger" name="limit_trigger" value="{{variables.limit_trigger is defined ? variables.limit_trigger }}">
+            </div>
+            <div class="col-sm-2 col-3">
+              <label for="caste">Caste:</label>
+            </div>
+            <div class="col-sm-4 col-9">
+              <input type="text" id="caste" name="caste" value="{{variables.caste is defined ? variables.caste}}">
             </div>
             <div class="col-sm-2 col-3">
               <label for="concept">Concept:</label>
             </div>
-            <div class="col-sm-10 col-9">
-              <input type="text" id="concept" name="concept" value="{{variables.concept is defined ? variables.concept }}">
-            </div>
+            <div class="col-sm-4 col-9">
+              <input type="text" id="concept" name="concept" value="{{variables.concept is defined ? variables.concept}}">
           </div>
         </div>
       </div>
@@ -152,6 +176,7 @@ set variables = {"name":"Sample Character","age":"23","concept":"This is a sampl
         <!-- Abilities & Additional Abilities -->
         <div class="col-sm-4 col-12">
           {{ sheet.separator("Abilities") }}
+          {% if false %}
           {% for ability in abilities %}
           {% set slug = ability|lower|replace({" ": "_"}) %}
           {{ sheet.abilityEntry(ability, true, true, false, variables[slug] is defined ? variables[slug] : 0, variables[slug ~ "_specialty"], variables[slug ~ "_favored"] is defined ? variables[slug ~ "_favored"] : false) }}
@@ -165,6 +190,7 @@ set variables = {"name":"Sample Character","age":"23","concept":"This is a sampl
           {% set favored = variables[slug ~ "_favored"] is defined ? variables[slug ~ "_favored"] : false %}
           {{ sheet.abilityEntry(name, true, true, true, value, specialty, favored, true, slug) }}
           {% endfor %}
+          {% endif %}
         </div>
         <!-- Merits, Willpower & Experience, Essence & Misc, Weapons -->
         <div class="col-sm-8 col-12">
