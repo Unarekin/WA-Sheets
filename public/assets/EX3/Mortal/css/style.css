@@ -7,10 +7,19 @@
   font-family: "open sans";
   box-sizing: border-box;
 }
+.user-css label {
+  color: black;
+}
+.user-css .inline-block {
+  display: inline-block;
+}
 .user-css input[type=text], .user-css input[type=number] {
   border: none;
   border-bottom: 1px solid black;
   width: 100%;
+}
+.user-css input.health {
+  width: 28px;
 }
 .user-css .underline {
   border-bottom: 1px solid black;
@@ -41,6 +50,9 @@
 .user-css .big-squares {
   font-size: 25px;
   line-height: 25px;
+}
+.user-css label {
+  margin-bottom: 0;
 }
 .user-css .min-height-24 {
   min-height: 24px;

@@ -19,75 +19,57 @@ set variables = {"name":"Sample Character","age":"23","concept":"This is a sampl
 <body>
 
   <!-- Code goes here -->
-  {% import _self as sheet %}
-  {% set logoUrl = "https://rawcdn.githack.com/Unarekin/WA-Sheets/97bac457013be51b768a76819370d647e1ff358a/public/assets/EX3/images/GoldLogo.png" %}
+{% import _self as sheet %}
+{% set logoUrl = "https://rawcdn.githack.com/Unarekin/WA-Sheets/97bac457013be51b768a76819370d647e1ff358a/public/assets/EX3/images/GoldLogo.png" %}
+{% set abilities = ['Archery','Athletics','Awareness','Brawl','Bureaucracy','Craft','Dodge','Integrity','Investigation','Larceny','Linguistics','Lore','Martial Arts','Medicine','Melee','Occult','Performance','Presence','Resistance','Ride','Sail','Socialize','Stealth','Survival','Thrown','War'] %}
 
-    {% set abilities = [
-    'Archery',
-    'Athletics',
-    'Awareness',
-    'Brawl',
-    'Bureaucracy',
-    'Craft',
-    'Dodge',
-    'Integrity',
-    'Investigation',
-    'Larceny',
-    'Linguistics',
-    'Lore',
-    'Martial Arts',
-    'Medicine',
-    'Melee',
-    'Occult',
-    'Performance',
-    'Presence',
-    'Resistance',
-    'Ride',
-    'Sail',
-    'Socialize',
-    'Stealth',
-    'Survival',
-    'Thrown',
-    'War'
-  ] %}
-  {% macro separator(name) %}
+{% macro separator(name) %}
   <div class="bar">
     <img src="https://rawcdn.githack.com/Unarekin/WA-Sheets/97bac457013be51b768a76819370d647e1ff358a/public/assets/EX3/images/GoldBar.jpg">
     <div class="abs-center"><span class="white-bg pad-left pad-right">{{name}}</span></div>
   </div>
-  {% endmacro separator %}
-  {% macro showDots(value, max = 5, emptyChar = "○", fullChar = "●") %}
-  {% set value = value|abs %}
-  {% set max = max|abs %}
+{% endmacro separator %}
+
+{% macro showDots(value, max = 5, emptyChar = "○", fullChar = "●") %}
+{% set value = value|abs %}
+{% set max = max|abs %}
 {% if value is defined and value > 0 %}
 {% for i in 1..value %}{{ fullChar }}{% endfor %}
 {% endif %}
 {% if value is defined and value < max %}
 {% for i in 1..(max - value) %}{{ emptyChar }}{% endfor %}
 {% endif %}
-  {% endmacro showDots %}
-  {% macro abilityEntry(name, allowSpecialty=false, allowFavored=true, underlineName=false, value=0, specialty="", favored=false) %}
+{% endmacro showDots %}
+
+{% macro abilityEntry(name, allowSpecialty=false, allowFavored=true, underlineName=false, value=0, specialty="", favored=false) %}
   {% import _self as ext %}
   {% if value is not defined or value == "" %}
-  {% set value = 0 %}
+    {% set value = 0 %}
+  {% endif %}
+  {% if specialty is defined and specialty != "" %}
+    {% set specialty = "(" ~ specialty ~ ")" %}
   {% endif %}
   <div class="row">
-    {% if allowFavored %}<div class="col-1">☐</div>{% endif %}
-    <div class="{% if allowFavored %}col-8{% else %}col-9{% endif %}">
+    {% if allowFavored %}
+      <div class="col-1">{{ favored ? "☑" : "☐" }}</div>
+    {% endif %}
+    <div class="{% if allowFavored and allowSpecialty %}col-5{% elseif allowFavored %}col-4{% elseif allowSpecialty %}col-8{% else %}col-9{% endif %}">
       {% if underlineName %}<div class="underline fullheight">{% endif %}{{name}}{% if underlineName %}</div>{% endif %}
     </div>
+    {% if allowSpecialty %}
+      <div class="col-3">{{ specialty }}</div>
+    {% endif %}
     <div class="col-3 text-right">{{ ext.showDots(value) }}</div>
   </div>
-  {% endmacro abilityEntry %}
-  {% macro weaponLine(name, withering, decisive, damage) %}
+{% endmacro abilityEntry %}
+{% macro weaponLine(name, withering, decisive, damage) %}
   <div class="row bump-right bump-left">
     <div class="col-6 underline min-height-20">{{ name is defined ? name}}</div>
     <div class="col-2 underline min-height-20 text-center">{{ withering is defined ? withering }}</div>
     <div class="col-2 underline min-height-20 text-center">{{ decisive is defined ? decisive }}</div>
     <div class="col-2 underline min-height-20 text-center">{{ damage is defined ? damage }}</div>
   </div>
-  {% endmacro weaponLine %}
-
+{% endmacro weaponLine %}
   <div class="user-css">
     <div class="container">
       <!-- Header -->
@@ -131,13 +113,17 @@ set variables = {"name":"Sample Character","age":"23","concept":"This is a sampl
         <div class="col-sm-4 col-12">
           {{ sheet.separator("Abilities") }}
           {% for ability in abilities %}
-          {% set slug = ability|lower|replace({" ": "_"}) %}
-          {{ sheet.abilityEntry(ability, true, true, false, variables[slug] is defined ? variables[slug] : 0, variables[slug ~ "_specialty"], variables[slug ~ "_favored"] is defined ? variables[slug ~ "_favored"] : false) }}
+            {% set slug = ability|lower|replace({" ": "_"}) %}
+            {{ sheet.abilityEntry(ability, true, true, false, variables[slug] is defined ? variables[slug] : 0, variables[slug ~ "_specialty"], variables[slug ~ "_favored"] is defined ? variables[slug ~ "_favored"] : false) }}
           {% endfor %}
           {{ sheet.separator("Additional Abilities") }}
           {% for index in 0..4 %}
-          {% set slug = "additional_ability_" ~ index %}
-          {{ sheet.abilityEntry(variables[slug ~ "_name"] is defined ? variables[slug ~ "_name"] : "", true, true, true, variables[slug ~ "_value"] is defined ? variables[slug ~ "_value"] : 0) }}
+            {% set slug = "additional_ability_" ~ index %}
+            {% set name = (variables[slug ~ "_name"] is defined ? variables[slug ~ "_name"] : "") %}
+            {% set value = (variables[slug ~ "_value"] is defined ? variables[slug ~ "_value"] : "") %}
+            {% set specialty = (variables[slug ~ "_specialty"] is defined ? variables[slug ~ "_specialty"] : "") %}
+            {% set favored = (variables[slug ~ "_favored"] is defined ? variables[slug ~ "_favored"] : false) %}
+            {{ sheet.abilityEntry(name, true, true, true, value, specialty, favored) }}
           {% endfor %}
         </div>
         <!-- Merits, Willpower & Experience, Essence & Misc, Weapons -->
@@ -209,7 +195,6 @@ set variables = {"name":"Sample Character","age":"23","concept":"This is a sampl
                 <div class="col-3">Committed:</div>
                 <div class="col-9 underline text-center">{{ variables.committed_essence is defined ? variables.committed_essence }}</div>
               </div>
-
             </div>
             <!-- Misc -->
             <div class="col-sm-6 col-12">
@@ -267,7 +252,15 @@ set variables = {"name":"Sample Character","age":"23","concept":"This is a sampl
         <div class="col-2 col-sm-1 underline text-center">{{ variables.disengage is defined ? variables.disengage }}</div>
       </div>
       <!-- Health levels -->
-
+      <div class="text-center">
+        <br>
+        {% for index in 0..31 %}
+          {% set slug = "health_level_" ~ index %}
+          {% if variables[slug] is defined and variables[slug] != "" %}
+            <div class="d-inline-block text-center">☐<br>{{ variables[slug] }}</div>
+          {% endif %}
+        {% endfor %}
+      </div>
       <!-- Intimacies -->
       {{ sheet.separator("Intimacies") }}
       <div class="row bump-right">
@@ -289,17 +282,21 @@ set variables = {"name":"Sample Character","age":"23","concept":"This is a sampl
           <div class="col-sm-6 col-12">
             <div class="row">
               <div class="col-10">
-                <div class="underline fullheight">{{ variables["intimacy_" ~ index ~ "_name"] is defined ? variables["intimacy_" ~ index ~ "_name"] }}</div>
+                <div class="underline min-height-20">{{ variables["intimacy_" ~ index ~ "_name"] is defined ? variables["intimacy_" ~ index ~ "_name"] }}</div>
               </div>
-              <div class="col-2 text-center">{{ sheet.showDots(variables["intimacy_" ~ index ~ "_intensity"] is defined ? variables["intimacy_" ~ index ~ "_intensity"] : 0, 3) }}</div>
+              <div class="col-2 text-center">
+                <div class="underline min-height-20">{{ variables["intimacy_" ~ index ~ "_intensity"] is defined ? variables["intimacy_" ~ index ~ "_intensity"] }}</div>
+              </div>
             </div>
           </div>
           <div class="col-sm-6 col-12">
             <div class="row">
               <div class="col-10">
-                <div class="underline fullheight">{{ variables["intimacy_" ~ (index + 10) ~ "_name"] is defined ? variables["intimacy_" ~ (index + 10) ~ "_name"] }}</div>
+                <div class="underline min-height-20">{{ variables["intimacy_" ~ (index + 10) ~ "_name"] is defined ? variables["intimacy_" ~ (index + 10) ~ "_name"] }}</div>
               </div>
-              <div class="col-2 text-center">{{ sheet.showDots(variables["intimacy_" ~ (index + 10) ~ "_intensity"] is defined ? variables["intimacy_" ~ (index + 10) ~ "_intensity"] : 0, 3) }}</div>
+              <div class="col-2 text-center">
+                <div class="underline min-height-20">{{ variables["intimacy_" ~ (index + 10) ~ "_intensity"] is defined ? variables["intimacy_" ~ (index + 10) ~ "_intensity"] }}</div>
+              </div>
             </div>
           </div>
         {% endfor %}
@@ -307,9 +304,9 @@ set variables = {"name":"Sample Character","age":"23","concept":"This is a sampl
       <!-- Equipment -->
       {{ sheet.separator("Equipment") }}
       <div class="row">
-        <div class="col-12">
+        <div class="col-12 bump-left bump-right">
           {% for index in 0..7 %}
-          <div class="row bump-left bump-right">
+          <div class="row">
             <div class="col-sm-6 col-12 underline min-height-20">{{ variables["equipment_" ~ index] is defined ? variables["equipment_" ~ index] }}</div>
             <div class="col-sm-6 col-12 underline min-height-20">{{ variables["equipment_" ~ (index + 8)] is defined ? variables["equipment_" ~ (index + 8)] }}</div>
           </div>

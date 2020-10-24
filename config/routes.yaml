@@ -16,3 +16,23 @@ ex3_mortal_edit:
   controller: Symfony\Bundle\FrameworkBundle\Controller\TemplateController::templateAction
   defaults:
     template: EX3\Mortal\edit.html.twig
+ex3_solar_view:
+  path: /EX3/Solar/view
+  controller: Symfony\Bundle\FrameworkBundle\Controller\TemplateController::templateAction
+  defaults:
+    template: EX3\Solar\sheet.html.twig
+ex3_solar_edit:
+  path: /EX3/Solar/edit
+  controller: Symfony\Bundle\FrameworkBundle\Controller\TemplateController::templateAction
+  defaults:
+    template: EX3\Solar\edit.html.twig
+ex3_lunar_view:
+  path: /EX3/Lunar/view
+  controller: Symfony\Bundle\FrameworkBundle\Controller\TemplateController::templateAction
+  defaults:
+    template: EX3\Lunar\sheet.html.twig
+ex3_lunar_edit:
+  path: /EX3/Lunar/edit
+  controller: Symfony\Bundle\FrameworkBundle\Controller\TemplateController::templateAction
+  defaults:
+    template: EX3\Lunar\edit.html.twig

@@ -11,10 +11,22 @@
     box-sizing: border-box;
   }
 
+  label {
+    color: black;
+  }
+
+  .inline-block {
+    display: inline-block;
+  }
+
   input[type="text"],input[type="number"] {
     border: none;
     border-bottom: 1px solid black;
     width: 100%;
+  }
+
+  input.health {
+    width: 28px;
   }
 
   .underline {
@@ -53,6 +65,10 @@
   .big-squares {
     font-size: 25px;
     line-height: 25px;
+  }
+
+  label {
+    margin-bottom: 0;
   }
 
   .min-height-24 {
