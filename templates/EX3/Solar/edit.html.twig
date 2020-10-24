@@ -53,6 +53,12 @@ set variables = {"name":"Sample Character","age":"23","concept":"This is a sampl
         "Lore",
         "Medicine",
         "Occult"
+      ],
+      "Misc": [
+        "additional_ability_0",
+        "additional_ability_1",
+        "additional_ability_2",
+        "additional_ability_3"
       ]
     }
   %}
@@ -173,11 +179,42 @@ set variables = {"name":"Sample Character","age":"23","concept":"This is a sampl
         </div>
       </div>
       <!-- Main Content -->
+
+      <!-- Abilities -->
+      {{ sheet.separator("Abilities") }}
       <div class="row">
-        <!-- Abilities & Additional Abilities -->
         <div class="col-sm-4 col-12">
-          {{ sheet.separator("Abilities") }}
-          {% if false %}
+          <div class="text-center">War</div>
+          {% for ability in abilities.War %}
+          {% set slug = ability|lower|replace({" ": "_"}) %}
+          {{ sheet.abilityEntry(ability, true, true, false, variables[slug] is defined ? variables[slug] : 0, variables[slug ~ "_specialty"], variables[slug ~ "_favored"] is defined ? variables[slug ~ "_favored"] : false) }}
+          {% endfor %}
+        </div>
+        <div class="col-sm-4 col-12">
+          <div class="text-center">Life</div>
+          {% for ability in abilities.Life %}
+          {% set slug = ability|lower|replace({" ": "_"}) %}
+          {{ sheet.abilityEntry(ability, true, true, false, variables[slug] is defined ? variables[slug] : 0, variables[slug ~ "_specialty"], variables[slug ~ "_favored"] is defined ? variables[slug ~ "_favored"] : false) }}
+          {% endfor %}
+        </div>
+        <div class="col-sm-4 col-12">
+          <div class="text-center">Wisdom</div>
+          {% for ability in abilities.Wisdom %}
+          {% set slug = ability|lower|replace({" ": "_"}) %}
+          {{ sheet.abilityEntry(ability, true, true, false, variables[slug] is defined ? variables[slug] : 0, variables[slug ~ "_specialty"], variables[slug ~ "_favored"] is defined ? variables[slug ~ "_favored"] : false) }}
+          {% endfor %}
+          <div class="text-center">Craft/Martial Arts</div>
+          {% for index in 0..3 %}
+          {% set slug = "additional_ability_" ~ index %}
+          {% set name = variables[slug ~ "_name"] is defined ? variables[slug ~ "_name"] : "" %}
+          {% set value = variables[slug ~ "_value"] is defined ? variables[slug ~ "_value"] : 0 %}
+          {% set specialty = variables[slug ~ "_specialty"] is defined ? variables[slug ~ "_specialty"] : "" %}
+          {% set favored = variables[slug ~ "_favored"] is defined ? variables[slug ~ "_favored"] : false %}
+          {{ sheet.abilityEntry(name, true, true, true, value, specialty, favored, true, slug) }}
+          {% endfor %}
+        </div>
+        {% if false %}
+        <div class="col-sm-4 col-12">
           {% for ability in abilities %}
           {% set slug = ability|lower|replace({" ": "_"}) %}
           {{ sheet.abilityEntry(ability, true, true, false, variables[slug] is defined ? variables[slug] : 0, variables[slug ~ "_specialty"], variables[slug ~ "_favored"] is defined ? variables[slug ~ "_favored"] : false) }}
@@ -191,155 +228,8 @@ set variables = {"name":"Sample Character","age":"23","concept":"This is a sampl
           {% set favored = variables[slug ~ "_favored"] is defined ? variables[slug ~ "_favored"] : false %}
           {{ sheet.abilityEntry(name, true, true, true, value, specialty, favored, true, slug) }}
           {% endfor %}
-          {% endif %}
         </div>
-        <!-- Merits, Willpower & Experience, Essence & Misc, Weapons -->
-        <div class="col-sm-8 col-12">
-          <!-- Merits -->
-          {{ sheet.separator("Merits") }}
-          <div class="row">
-            {% for index in 0..25 %}
-              {% set slug = "merit_" ~ index %}
-              {% set name = variables[slug ~ "_name"] is defined ? variables[slug ~ "_name"] : "" %}
-              {% set value = variables[slug ~ "_value"] is defined ? variables[slug ~ "_value"] : 0 %}
-              <div class="col-sm-6 col-12">
-                {{ sheet.abilityEntry(name, false, false, true, value, "", false, true, "merit_" ~ index) }}
-              </div>
-            {% endfor %}
-          </div>
-          <!-- Willpower & Experience -->
-          <div class="row">
-            <!-- Willpower -->
-            <div class="col-sm-6 col-12">
-              {{ sheet.separator("Willpower") }}
-              <!-- Permanent Willpower -->
-              <div class="row">
-                <div class="col-4">
-                  <label for="permanent_willpower">Permanent:</label>
-                </div>
-                <div class="col-8">
-                  <input type="number" value="{{ variables.permanent_willpower is defined ? variables.permanent_willpower : 0}}" id="permanent_willpower" name="permanent_willpower">
-                </div>
-              </div>
-              <!-- Temporary Willpower -->
-              <div class="row">
-                <div class="col-4">
-                  <label for="temporary_willpower">Temporary:</label>
-                </div>
-                <div class="col-8">
-                  <input type="number" value="{{ variables.temporary_willpower is defined ? variables.temporary_willpower : 0}}" id="temporary_willpower" name="temporary_willpower">
-                </div>
-              </div>
-            </div>
-            <!-- Experience -->
-            <div class="col-sm-6 col-12">
-              {{ sheet.separator("Experience") }}
-              <div class="row bump-right">
-                <div class="col-3">
-                  <label for="current_experience">Current:</label>
-                </div>
-                <div class="col-3">
-                  <input type="number" id="current_experience" name="current_experience" value="{{ variables.current_experience is defined ? variables.current_experience }}">
-                </div>
-                <div class="col-3">
-                  <label for="total_experience">Total:</label>
-                </div>
-                <div class="col-3">
-                  <input type="number" id="total_experience" name="total_experience" value="{{ variables.total_experience is defined ? variables.total_experience }}">
-                </div>
-              </div>
-            </div>
-          </div>
-          <!-- Essence & Misc -->
-          <div class="row">
-            <!-- Essence -->
-            <div class="col-sm-6 col-12">
-              {{ sheet.separator("Essence") }}
-              <!-- Permanent Essence -->
-              <div class="row">
-                <div class="col-3">
-                  <label for="permanent_essence">Permanent:</label>
-                </div>
-                <div class="col-9">
-                  <input type="number" id="permanent_essence" name="permanent_essence" value="{{ variables.permanent_essence is defined ? variables.permanent_essence : 0}}">
-                </div>
-              </div>
-              <!-- Personal Motes -->
-              <div class="row bump-right">
-                <div class="col-3">
-                  <label for="personal_essence">Personal:</label>
-                </div>
-                <div class="col-4">
-                  <input type="number" id="personal_essence" name="personal_essence" value="{{ variables.personal_essence is defined ? variables.personal_essence }}">
-                </div>
-                <div class="col-1">|</div>
-                <div class="col-4">
-                  <input type="number" id="personal_essence_max" name="personal_essence_max" value="{{ variables.personal_essence_max is defined ? variables.personal_essence_max }}">
-                </div>
-              </div>
-              <!-- Peripheral Motes -->
-              <div class="row bump-right">
-                <div class="col-3">
-                  <label for="peripheral_essence">Peripheral:</label>
-                </div>
-                <div class="col-4">
-                  <input type="number" id="peripheral_essence" name="peripheral_essence" value="{{ variables.peripheral_essence is defined ? variables.peripheral_essence }}">
-                </div>
-                <div class="col-1">|</div>
-                <div class="col-4">
-                  <input type="number" id="peripheral_essence_max" name="peripheral_essence_max" value="{{ variables.peripheral_essence_max is defined ? variables.peripheral_essence_max }}">
-                </div>
-              </div>
-              <!-- Committed Motes -->
-              <div class="row bump-right">
-                <div class="col-3">
-                  <label for="committed_essence">Committed:</label>
-                </div>
-                <div class="col-9">
-                  <input type="number" id="committed_essence" name="committed_essence" value="{{ variables.committed_essence is defined ? variables.committed_essence }}">
-                </div>
-              </div>
-
-            </div>
-            <!-- Misc -->
-            <div class="col-sm-6 col-12">
-              {{ sheet.separator("Misc") }}
-              <div class="row">
-                <div class="col-12">
-                  <textarea name="misc" id="misc" rows="5" class="fullwidth">{{ variables.misc is defined ? variables.misc }}</textarea>
-                </div>
-              </div>
-            </div>
-          </div>
-          <!-- Weapons -->
-          {{ sheet.separator("Weapons") }}
-          <div class="row bump-right">
-            <div class="col-6">Weapon Name</div>
-            <div class="col-2 text-center">Withering</div>
-            <div class="col-2 text-center">Decisive</div>
-            <div class="col-2 text-center">Damage</div>
-          </div>
-          {% for index in 0..4 %}
-          {% set name = variables["weapon_" ~ index ~ "_name"] is defined ? variables["weapon_" ~ index ~ "_name"] : "" %}
-          {% set withering = variables["weapon_" ~ index ~ "_withering"] is defined ? variables["weapon_" ~ index ~ "_withering"] : "" %}
-          {% set decisive = variables["weapon_" ~ index ~ "_decisive"] is defined ? variables["weapon_" ~ index ~ "_decisive"] : "" %}
-          {% set damage = variables["weapon_" ~ index ~ "_damage"] is defined ? variables["weapon_" ~ index ~ "_damage"] : "" %}
-          <div class="row">
-            <div class="col-6 min-height-20">
-              <input type="text" id="weapon_{{index}}_name" name="weapon_{{index}}_name" value="{{ name }}">
-            </div>
-            <div class="col-2 min-height-20">
-              <input type="text" id="weapon_{{index}}_withering" name="weapon_{{index}}_withering" value="{{ withering }}">
-            </div>
-            <div class="col-2 min-height-20">
-              <input type="text" id="weapon_{{index}}_decisive" name="weapon_{{index}}_decisive" value="{{ decisive }}">
-            </div>
-            <div class="col-2 min-height-20">
-              <input type="text" id="weapon_{{index}}_damage" name="weapon_{{index}}_damage" value="{{ damage }}">
-            </div>
-          </div>
-          {% endfor %}
-        </div>
+        {% endif %}
       </div>
       <!-- Health & Defense -->
       {{ sheet.separator("Health & Defense") }}
